@@ -3,9 +3,9 @@
 pragma solidity ^0.8.0;
 
 // We first import some OpenZeppelin Contracts.
-import "@openzeppelin/contracts/utils/Strings.sol";
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
+import "./custom_nft/Strings.sol";
+import "./custom_nft/ERC721URIStorage.sol";
+import "./custom_nft/Counters.sol";
 import "hardhat/console.sol";
 
 import {Base64} from "./libraries/Base64.sol";
@@ -45,6 +45,8 @@ contract MyEpicNFT is ERC721URIStorage {
         "in everything!",
         "in everything!"
     ];
+
+    event NewEpicNFTMinted(address sender, uint256 tokenId);
 
     // We need to pass the name of our NFTs token and it's symbol.
     constructor() ERC721("SquareNFT", "SQUARE") {
@@ -142,5 +144,7 @@ contract MyEpicNFT is ERC721URIStorage {
             newItemId,
             msg.sender
         );
+
+        emit NewEpicNFTMinted(msg.sender, newItemId);
     }
 }
